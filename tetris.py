@@ -84,7 +84,7 @@ class Shape(object):
         self.x = column
         self.y = row
         self.shape = shape
-        self.columns = color_list[shape_list.index(shape)]
+        self.color = color_list[shape_list.index(shape)]
         self.rotation = 0
 
 
@@ -130,7 +130,7 @@ def convert_shape_format(shape):
     for i, line in enumerate(format): 
         row = list(line) 
         for j, column in enumerate(row): 
-            if column == \"0\": 
+            if column == "0": 
                 positions.append((shape.x + j, shape.y + i))
 
     for i, pos in enumerate(positions): 
@@ -386,7 +386,8 @@ def main():
         # update the window
         draw_window(window)
 
-        
+        if check_lost(locked_positions): 
+            run = False
 
 
 def main_menu():
