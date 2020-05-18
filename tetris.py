@@ -162,7 +162,6 @@ def draw_grid(area, row, column):
     """
     area.fill((0,0,0))
 
-    # font = pygame.font.SysFont(\"comicsans\", 60) 
     font = pygame.font.SysFont("comicsans", 60)
     label = font.render("Tetris", 1, (255,255,255))
 
@@ -170,10 +169,10 @@ def draw_grid(area, row, column):
 
     for i in range(len(grid)): 
         for j in range(len(grid[0])): 
-            pygame.draw.rect(area, grid[i][j], (top_left_x + j * 30, top_left_y + 1 * 30, 30, 30), 0) 
+            pygame.draw.rect(area, grid[i][j], (top_left_x + j * 30, top_left_y + i * 30, 30, 30), 0) 
     
+    # draw the grid and border 
     draw_grid(area, 20, 10) 
-
     pygame.draw.rect(area, (255,0,0), (top_left_x, top_left_y, play_width, play_height), 5) 
     
     pygame.display.update()
