@@ -163,8 +163,28 @@ def draw_text_middle(text, size, color, area):
 def draw_grid(area, row, column):
     """
     """
+    grid_x = top_left_x
+    grid_y = top_left_y
 
-    pass
+    for i in range(row):
+
+        # draw the horizontal liens
+        pygame.draw.line(
+            area,
+            (128, 128, 128),
+            (grid_x, grid_y + i * 30),
+            (grid_x + play_width, grid_y + i * 30),
+        )
+
+        for j in range(column):
+
+            # draw the vertical lines
+            pygame.draw.line(
+                area,
+                (128, 128, 128),
+                (grid_x + j * 30, grid_y),
+                (grid_x + j * 30, grid_y + play_height),
+            )
 
 
 def clear_rows(grid, locked):
