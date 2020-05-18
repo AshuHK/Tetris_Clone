@@ -16,7 +16,6 @@ top_left_x = (window_width - play_width) // 2
 top_left_y = window_height - play_height
 
 # The shapes
-
 S = [
     [".....", "......", "..00..", ".00...", "....."],
     [".....", "..0..", "..00.", "...0.", "....."],
@@ -66,6 +65,8 @@ color_list = [
 ]
 
 class Shape(object): 
+    """
+    """
 
     # y axis  
     rows = 20 
@@ -81,7 +82,30 @@ class Shape(object):
         self.rotation = 0 
 
 def create_grid(locked_positions={}): 
-    pass
+    """
+    Creates the grid using a tuple to represent the colors using 
+    a dictionary to show which positions are already taken
+
+    :param locked_positions: dictionary of the positions that are
+                             currently filled 
+
+    :return: a 2D list of tuples as RGB values 
+    """
+
+    # make a grid of colors a size of 10 by 20 
+    grid = [[(0,0,0) for x in range(10)] for y in range(20)]
+
+    # iterate through the whole grid 
+    for i in range(len(grid)): 
+        for j in range(len(grid[0])): 
+
+            # changes the color if the position is already taken
+            if (j, i) in locked_positions: 
+
+                c = locked_positions[(j,i)]
+                grid[i][j] = c
+
+    return grid 
 
 def convert_shape_format(shape): 
     pass
