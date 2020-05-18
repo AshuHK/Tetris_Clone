@@ -202,6 +202,24 @@ def main():
     """
     """
 
+    global grid 
+
+    locked_positions = {} 
+    grid = create_grid(locked_positions)
+
+    change_piece = False 
+    is_playing = True 
+    
+    current_shape = get_shape()
+    next_shape = get_shape()
+
+    clock = pygame.time.Clock()
+
+    fall_time = 0 
+
+
+
+
     pass
 
 
