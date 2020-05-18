@@ -66,7 +66,19 @@ color_list = [
 ]
 
 class Shape(object): 
-    pass
+
+    # y axis  
+    rows = 20 
+
+    # x axis 
+    columns = 10
+    
+    def __init__(self, column, row, shape): 
+        self.x = column
+        self.y = row
+        self.shape = shape
+        self.columns = color_list[shape_list.index(shape)]
+        self.rotation = 0 
 
 def create_grid(locked_positions={}): 
     pass
@@ -89,4 +101,19 @@ def draw_text_middle(text, size, color, area):
 def draw_grid(area, row, column): 
     pass
 
+def clear_rows(grid, locked): 
+    pass
 
+def draw_next_shape(shape, area): 
+    pass
+
+def draw_window(area): 
+    pass
+
+def main(): 
+    pass
+
+def main_menu(): 
+    pass
+
+main_menu()
