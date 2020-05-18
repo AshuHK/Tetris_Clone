@@ -134,9 +134,12 @@ def check_lost(positions):
 
 def get_shape():
     """
+    Returns a randomly selected shape 
     """
 
-    pass
+    global shape_list, color_list 
+
+    return Shape(5, 0, random.choice(shape_list))
 
 
 def draw_text_middle(text, size, color, area):
