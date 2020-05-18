@@ -67,6 +67,7 @@ color_list = [
 
 class Shape(object):
     """
+    Class representing the shapes on the grid
     """
 
     # y axis
