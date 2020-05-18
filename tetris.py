@@ -117,48 +117,49 @@ def create_grid(locked_positions={}):
 
 def convert_shape_format(shape):
     """
-    Convert the given shape into a format that can be easily put into a list 
-    
-    :param shape: Shape object to be converted 
-    
-    :return: List of tuples of (x, y) coordinates 
+    Convert the given shape into a format that can be easily put into a list
+
+    :param shape: Shape object to be converted
+
+    :return: List of tuples of (x, y) coordinates
     """
 
-    positions = [] 
+    positions = []
     format = shape.shape[shape.rotation % len(shape.shape)]
 
-    for i, line in enumerate(format): 
-        row = list(line) 
-        for j, column in enumerate(row): 
-            if column == "0": 
+    for i, line in enumerate(format):
+        row = list(line)
+        for j, column in enumerate(row):
+            if column == "0":
                 positions.append((shape.x + j, shape.y + i))
 
-    for i, pos in enumerate(positions): 
-        positions[i] = (pos[0] - 2, pos[1] - 4) 
+    for i, pos in enumerate(positions):
+        positions[i] = (pos[0] - 2, pos[1] - 4)
 
     return positions
-
 
 
 def check_valid_space(shape, grid):
     """
     Returns a boolean if the given positions for the shapes is allowed
 
-    :param shape: Shape object to be checked for a valid position 
-    :param grid: 2D list to represent the grid in the game 
+    :param shape: Shape object to be checked for a valid position
+    :param grid: 2D list to represent the grid in the game
 
-    :return: Boolean for if the space is allowed for the shape 
+    :return: Boolean for if the space is allowed for the shape
     """
 
-    allowed_positions = [[(j, i) for j in range(10) if grid[i][j] == (0,0,0)] for i in range(20)]
+    allowed_positions = [
+        [(j, i) for j in range(10) if grid[i][j] == (0, 0, 0)] for i in range(20)
+    ]
 
     allowed_positions = [j for sub in allowed_positions for j in sub]
 
     formatted_shape = convert_shape_format(shape)
 
-    for pos in formatted_shape: 
-        if pos not in allowed_positions: 
-            if pos[1] > -1: 
+    for pos in formatted_shape:
+        if pos not in allowed_positions:
+            if pos[1] > -1:
                 return False
 
     return True
@@ -166,22 +167,22 @@ def check_valid_space(shape, grid):
 
 def check_lost(positions):
     """
-    Check the positions of all of the shapes and determines if the game is over 
+    Check the positions of all of the shapes and determines if the game is over
 
-    :param positions: 2D list of tuples of (x, y) coordinates 
-    
-    :return: Boolean stating if the game is over 
+    :param positions: 2D list of tuples of (x, y) coordinates
+
+    :return: Boolean stating if the game is over
     """
 
-    # iterate through each shapes position 
-    for pos in positions: 
+    # iterate through each shapes position
+    for pos in positions:
         x, y = pos
 
-        # if a shape is at the top, then the game is over 
-        if y < 1: 
-            return True 
-    
-    return False 
+        # if a shape is at the top, then the game is over
+        if y < 1:
+            return True
+
+    return False
 
 
 def get_shape():
@@ -210,11 +211,11 @@ def draw_text_middle(text, size, color, area):
 
 def draw_grid(area, row, column):
     """
-    Draws the grid lines on the playing grid 
+    Draws the grid lines on the playing grid
 
-    :param area: Surface to draw on the window 
-    :param row: Integer for the number of rows in the grid 
-    :param column: Integer for the number of columns in the grid 
+    :param area: Surface to draw on the window
+    :param row: Integer for the number of rows in the grid
+    :param column: Integer for the number of columns in the grid
     """
     grid_x = top_left_x
     grid_y = top_left_y
@@ -311,19 +312,19 @@ def main():
 
     # run the this main loop when the game is still running
     while is_playing:
-        
-        # set a fall speed and have it increase over time 
-        fall_speed = .27
-        grid = create_grid(locked_positions) 
+
+        # set a fall speed and have it increase over time
+        fall_speed = 0.27
+        grid = create_grid(locked_positions)
         fall_time += clock.get_rawtime()
         clock.tick()
 
-        # adding falling of the shapes 
-        if (fall_time / 1000) >= fall_speed: 
-            fall_time = 0 
-            current_shape.y += 1 
-            if not check_valid_space(current_shape, grid) and (current_shape.y > 0): 
-                current_shape.y -= 1 
+        # adding falling of the shapes
+        if (fall_time / 1000) >= fall_speed:
+            fall_time = 0
+            current_shape.y += 1
+            if not check_valid_space(current_shape, grid) and (current_shape.y > 0):
+                current_shape.y -= 1
                 change_shape = True
 
         for event in pygame.event.get():
@@ -368,26 +369,27 @@ def main():
                     if not check_valid_space(current_shape, grid):
                         current_shape.y -= 1
 
-        shape_pos = convert_shape_format(current_shape) 
+        shape_pos = convert_shape_format(current_shape)
 
-        for i in range(len(shape_pos)): 
+        # set the position in the grid that specific color of the piece
+        for i in range(len(shape_pos)):
             x, y = shape_pos[i]
-            if y > -1: 
+            if y > -1:
                 grid[y][x] = current_shape.color
-        
+
         # when the shape hits the bottom of the grid
-        if change_shape: 
-            for pos in shape_pos: 
+        if change_shape:
+            for pos in shape_pos:
                 p = (pos[0], pos[1])
                 locked_positions[p] = current_shape.color
-            current_shape = next_shape 
+            current_shape = next_shape
             next_shape = get_shape()
-            change_shape = False 
+            change_shape = False
 
         # update the window
         draw_window(window)
 
-        if check_lost(locked_positions): 
+        if check_lost(locked_positions):
             run = False
 
 
