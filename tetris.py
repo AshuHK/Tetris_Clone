@@ -144,7 +144,7 @@ def get_shape():
     global shape_list, color_list
 
     # select a random index in the shape list 
-    random_shape = shape_list[random.randint(0, len(shape_list))]
+    random_shape = shape_list[random.randint(0, len(shape_list) - 1)]
 
     # return that shape 
     return Shape(5, 0, random_shape)
@@ -250,7 +250,7 @@ def main():
 
                     if not check_valid_space(current_shape, grid): 
                         current_shape.y -= 1
-        draw_window(win)
+        draw_window(window)
 
 
 def main_menu():
