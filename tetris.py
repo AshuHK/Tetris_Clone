@@ -312,8 +312,8 @@ def main():
     # run the this main loop when the game is still running
     while is_playing:
         
+        # set a fall speed and have it increase over time 
         fall_speed = .27
-
         grid = create_grid(locked_positions) 
         fall_time += clock.get_rawtime()
         clock.tick()
@@ -374,7 +374,8 @@ def main():
             x, y = shape_pos[i]
             if y > -1: 
                 grid[y][x] = current_shape.color
-
+        
+        # when the shape hits the bottom of the grid
         if change_shape: 
             for pos in shape_pos: 
                 p = (pos[0], pos[1])
