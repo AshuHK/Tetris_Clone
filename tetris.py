@@ -398,7 +398,7 @@ def main_menu():
     pass
 
 
-# main_menu()
+main_menu()
 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Tetris")
