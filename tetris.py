@@ -296,7 +296,7 @@ def main():
     grid = create_grid(locked_positions)
 
     # booleans for running the game
-    change_piece = False
+    change_shape = False
     is_playing = True
 
     # get the first two shapes
@@ -311,6 +311,20 @@ def main():
 
     # run the this main loop when the game is still running
     while is_playing:
+        
+        fall_speed = .27
+
+        grid = create_grid(locked_positions) 
+        fall_time += clock.get_rawtime()
+        clock.tick()
+
+        # adding falling of the shapes 
+        if (fall_time / 1000) >= fall_speed: 
+            fall_time = 0 
+            current_shape.y += 1 
+            if not check_valid_space(current_shape, grid) and (current_shape.y > 0): 
+                current_shape.y -= 1 
+                change_shape = True
 
         for event in pygame.event.get():
 
