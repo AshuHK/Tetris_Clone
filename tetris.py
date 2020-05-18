@@ -217,7 +217,10 @@ def main():
 
     fall_time = 0 
 
-
+    # while is_playing: 
+        # 
+        # for event in pygame.event.get(): 
+            # 
 
 
     pass
