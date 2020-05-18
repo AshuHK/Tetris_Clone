@@ -314,7 +314,7 @@ def main():
     while is_playing:
 
         # set a fall speed and have it increase over time
-        fall_speed = 0.27
+        fall_speed = 0.40
         grid = create_grid(locked_positions)
         fall_time += clock.get_rawtime()
         clock.tick()
