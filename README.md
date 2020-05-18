@@ -1,2 +1,2 @@
 # Tetris_Clone
- Tetris Clone using Pygame
+ A remake of the classic Atari game Tetris using Pygame  
