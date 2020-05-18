@@ -117,9 +117,25 @@ def create_grid(locked_positions={}):
 
 def convert_shape_format(shape):
     """
+    Convert the given shape into a format that can be easily put into a list 
+    
+    :param shape: 
     """
 
-    pass
+    positions = [] 
+    format = shape.shape[shape.rotation % len(shape.shape)]
+
+    for i, line in enumerate(format): 
+        row = list(line) 
+        for j, column in enumerate(row): 
+            if column == \"0\": 
+                positions.append((shape.x + j, shape.y + i))
+
+    for i, pos in enumerate(positions): 
+        positions[i] = (pos[0] - 2, pos[1] - 4) 
+
+    return positions
+
 
 
 def check_valid_space(shape, grid):
@@ -162,6 +178,11 @@ def draw_text_middle(text, size, color, area):
 
 def draw_grid(area, row, column):
     """
+    Draws the grid lines on the playing grid 
+
+    :param area: Surface to draw on the window 
+    :param row: Integer for the number of rows in the grid 
+    :param column: Integer for the number of columns in the grid 
     """
     grid_x = top_left_x
     grid_y = top_left_y
