@@ -56,12 +56,13 @@ T = [
 
 shape_list = [S, Z, I, O, J, L, T]
 color_list = [
+    (255, 0, 0),
     (255, 255, 0),
     (0, 255, 0),
-    (255, 0, 0),
-    (0, 255, 255),
     (255, 165, 0),
-    (128, 0, 128)(0, 0, 255),
+    (0, 255, 255),
+    (0, 0, 255),
+    (128, 0, 128),
 ]
 
 
@@ -226,7 +227,7 @@ def main():
                 pygame.display.quit()
                 quit() 
         
-            if event.type = pygame.KEYDOWN: 
+            if event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_LEFT: 
                     current_shape.x -= 1 
 
@@ -262,6 +263,6 @@ def main_menu():
 # main_menu()
 
 window = pygame.display.set_mode((window_width, window_height)) 
-pygame.display.set_caption(\"Tetris\")
+pygame.display.set_caption("Tetris")
 
 main()
