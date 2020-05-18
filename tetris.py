@@ -119,7 +119,9 @@ def convert_shape_format(shape):
     """
     Convert the given shape into a format that can be easily put into a list 
     
-    :param shape: 
+    :param shape: Shape object to be converted 
+    
+    :return: List of tuples of (x, y) coordinates 
     """
 
     positions = [] 
@@ -140,9 +142,21 @@ def convert_shape_format(shape):
 
 def check_valid_space(shape, grid):
     """
+    Returns a boolean if the given positions for the shapes is allowed 
     """
 
-    pass
+    allowed_positions = [[(j, i) for j in range(10) if grid[i][j] == (0,0,0)] for i in range(20)]
+
+    allowed_positions = [j for sub in allowed_positions for j in sub]
+
+    formatted_shape = convert_shape_format(shape)
+
+    for pos in formatted_shape: 
+        if pos not in allowed_positions: 
+            if pos[1] > -1: 
+                return False
+
+    return True
 
 
 def check_lost(positions):
