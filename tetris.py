@@ -135,11 +135,18 @@ def check_lost(positions):
 def get_shape():
     """
     Returns a randomly selected shape 
+
+    :return: A randomly selected shape from the 
     """
 
-    global shape_list, color_list 
+    # using the global variables 
+    global shape_list, color_list
 
-    return Shape(5, 0, random.choice(shape_list))
+    # select a random index in the shape list 
+    random_shape = shape_list[random.randint(0, len(shape_list))]
+
+    # return that shape 
+    return Shape(5, 0, random_shape)
 
 
 def draw_text_middle(text, size, color, area):
@@ -152,6 +159,7 @@ def draw_text_middle(text, size, color, area):
 def draw_grid(area, row, column):
     """
     """
+    area.fill((0,0,0))
 
     pass
 
