@@ -64,80 +64,94 @@ color_list = [
     (128, 0, 128)(0, 0, 255),
 ]
 
-class Shape(object): 
+
+class Shape(object):
     """
     """
 
-    # y axis  
-    rows = 20 
+    # y axis
+    rows = 20
 
-    # x axis 
+    # x axis
     columns = 10
-    
-    def __init__(self, column, row, shape): 
+
+    def __init__(self, column, row, shape):
         self.x = column
         self.y = row
         self.shape = shape
         self.columns = color_list[shape_list.index(shape)]
-        self.rotation = 0 
+        self.rotation = 0
 
-def create_grid(locked_positions={}): 
+
+def create_grid(locked_positions={}):
     """
-    Creates the grid using a tuple to represent the colors using 
+    Creates the grid using a tuple to represent the colors using
     a dictionary to show which positions are already taken
 
     :param locked_positions: dictionary of the positions that are
-                             currently filled 
+                             currently filled
 
-    :return: a 2D list of tuples as RGB values 
+    :return: a 2D list of tuples as RGB values
     """
 
-    # make a grid of colors a size of 10 by 20 
-    grid = [[(0,0,0) for x in range(10)] for y in range(20)]
+    # make a grid of colors a size of 10 by 20
+    grid = [[(0, 0, 0) for x in range(10)] for y in range(20)]
 
-    # iterate through the whole grid 
-    for i in range(len(grid)): 
-        for j in range(len(grid[0])): 
+    # iterate through the whole grid
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
 
             # changes the color if the position is already taken
-            if (j, i) in locked_positions: 
+            if (j, i) in locked_positions:
 
-                c = locked_positions[(j,i)]
+                c = locked_positions[(j, i)]
                 grid[i][j] = c
 
-    return grid 
+    return grid
 
-def convert_shape_format(shape): 
+
+def convert_shape_format(shape):
     pass
 
-def check_valid_space(shape, grid): 
+
+def check_valid_space(shape, grid):
     pass
 
-def check_lost(positions): 
+
+def check_lost(positions):
     pass
 
-def get_shape(): 
+
+def get_shape():
     pass
 
-def draw_text_middle(text, size, color, area): 
+
+def draw_text_middle(text, size, color, area):
     pass
 
-def draw_grid(area, row, column): 
+
+def draw_grid(area, row, column):
     pass
 
-def clear_rows(grid, locked): 
+
+def clear_rows(grid, locked):
     pass
 
-def draw_next_shape(shape, area): 
+
+def draw_next_shape(shape, area):
     pass
 
-def draw_window(area): 
+
+def draw_window(area):
     pass
 
-def main(): 
+
+def main():
     pass
 
-def main_menu(): 
+
+def main_menu():
     pass
+
 
 main_menu()
