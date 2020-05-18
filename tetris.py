@@ -65,6 +65,9 @@ color_list = [
     (128, 0, 128),
 ]
 
+# randomize the colors of the shapes 
+random.shuffle(color_list)
+
 
 class Shape(object):
     """
@@ -200,7 +203,7 @@ def draw_window(area):
     # draw the grid and border
     draw_grid(area, 20, 10)
     pygame.draw.rect(
-        area, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5
+        area, (255, 255, 5), (top_left_x, top_left_y, play_width, play_height), 5
     )
 
     pygame.display.update()
@@ -208,43 +211,57 @@ def draw_window(area):
 
 def main():
     """
+    Main function for the game 
     """
 
     global grid
 
+    # create the grid based on the positions that are currently taken
     locked_positions = {}
     grid = create_grid(locked_positions)
 
+    # booleans for running the game 
     change_piece = False
     is_playing = True
 
+    # get the first two shapes 
     current_shape = get_shape()
     next_shape = get_shape()
 
+    # run an internal timer for the score 
     clock = pygame.time.Clock()
 
+    # represents how long it takes for a shape to fall down 
     fall_time = 0
 
+    # run the this main loop when the game is still running 
     while is_playing:
 
         for event in pygame.event.get():
+
+            # quit sequence 
             if event.type == pygame.QUIT:
                 run = False
                 pygame.display.quit()
                 quit()
 
+            # if one of the following pieces are being pressed 
             if event.type == pygame.KEYDOWN:
+
+                # move the shape to the left 
                 if event.key == pygame.K_LEFT:
                     current_shape.x -= 1
 
                     if not check_valid_space(current_shape, grid):
                         current_shape.x += 1
 
+                # move the shape to the right 
                 elif event.key == pygame.K_RIGHT:
                     current_shape.x += 1
                     if not check_valid_space(current_shape, grid):
                         current_shape.x -= 1
 
+                # rotate the shape clockwise 
                 elif event.key == pygame.K_UP:
                     current_shape.rotation = current_shape.rotation + 1 % len(
                         current_shape.shape
@@ -255,11 +272,14 @@ def main():
                             current_shape.shape
                         )
 
+                # move the piece down (overrides the current fall rate)
                 if event.key == pygame.K_DOWN:
                     current_shape.y += 1
 
                     if not check_valid_space(current_shape, grid):
                         current_shape.y -= 1
+        
+        # update the window
         draw_window(window)
 
 
