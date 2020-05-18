@@ -64,3 +64,29 @@ color_list = [
     (255, 165, 0),
     (128, 0, 128)(0, 0, 255),
 ]
+
+class Shape(object): 
+    pass
+
+def create_grid(locked_positions={}): 
+    pass
+
+def convert_shape_format(shape): 
+    pass
+
+def check_valid_space(shape, grid): 
+    pass
+
+def check_lost(positions): 
+    pass
+
+def get_shape(): 
+    pass
+
+def draw_text_middle(text, size, color, area): 
+    pass
+
+def draw_grid(area, row, column): 
+    pass
+
+
