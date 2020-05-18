@@ -368,8 +368,25 @@ def main():
                     if not check_valid_space(current_shape, grid):
                         current_shape.y -= 1
 
+        shape_pos = convert_shape_format(current_shape) 
+
+        for i in range(len(shape_pos)): 
+            x, y = shape_pos[i]
+            if y > -1: 
+                grid[y][x] = current_shape.color
+
+        if change_shape: 
+            for pos in shape_pos: 
+                p = (pos[0], pos[1])
+                locked_positions[p] = current_shape.color
+            current_shape = next_shape 
+            next_shape = get_shape()
+            change_shape = False 
+
         # update the window
         draw_window(window)
+
+        
 
 
 def main_menu():
