@@ -142,7 +142,12 @@ def convert_shape_format(shape):
 
 def check_valid_space(shape, grid):
     """
-    Returns a boolean if the given positions for the shapes is allowed 
+    Returns a boolean if the given positions for the shapes is allowed
+
+    :param shape: Shape object to be checked for a valid position 
+    :param grid: 2D list to represent the grid in the game 
+
+    :return: Boolean for if the space is allowed for the shape 
     """
 
     allowed_positions = [[(j, i) for j in range(10) if grid[i][j] == (0,0,0)] for i in range(20)]
@@ -161,9 +166,22 @@ def check_valid_space(shape, grid):
 
 def check_lost(positions):
     """
+    Check the positions of all of the shapes and determines if the game is over 
+
+    :param positions: 2D list of tuples of (x, y) coordinates 
+    
+    :return: Boolean stating if the game is over 
     """
 
-    pass
+    # iterate through each shapes position 
+    for pos in positions: 
+        x, y = pos
+
+        # if a shape is at the top, then the game is over 
+        if y < 1: 
+            return True 
+    
+    return False 
 
 
 def get_shape():
