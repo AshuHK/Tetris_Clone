@@ -112,46 +112,79 @@ def create_grid(locked_positions={}):
 
 
 def convert_shape_format(shape):
+    """
+    """
+
     pass
 
 
 def check_valid_space(shape, grid):
+    """
+    """
+
     pass
 
 
 def check_lost(positions):
+    """
+    """
+
     pass
 
 
 def get_shape():
+    """
+    """
+
     pass
 
 
 def draw_text_middle(text, size, color, area):
+    """
+    """
+
     pass
 
 
 def draw_grid(area, row, column):
+    """
+    """
+
     pass
 
 
 def clear_rows(grid, locked):
+    """
+    """
+
     pass
 
 
 def draw_next_shape(shape, area):
+    """
+    """
+
     pass
 
 
 def draw_window(area):
+    """
+    """
+
     pass
 
 
 def main():
+    """
+    """
+
     pass
 
 
 def main_menu():
+    """
+    """
+
     pass
 
 
