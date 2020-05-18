@@ -161,8 +161,9 @@ def draw_grid(area, row, column):
     """
     area.fill((0,0,0))
 
-    font = pygame.font.SysFont(\"comicsans\", 60) 
-    label = font.render(\"Tetris", 1, (255,255,255))
+    # font = pygame.font.SysFont(\"comicsans\", 60) 
+    font = pygame.font.SysFont("comicsans", 60)
+    label = font.render("Tetris", 1, (255,255,255))
 
     area.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
@@ -217,13 +218,38 @@ def main():
 
     fall_time = 0 
 
-    # while is_playing: 
-        # 
-        # for event in pygame.event.get(): 
-            # 
+    while is_playing: 
+        
+        for event in pygame.event.get(): 
+            if event.type == pygame.QUIT: 
+                run = False 
+                pygame.display.quit()
+                quit() 
+        
+            if event.type = pygame.KEYDOWN: 
+                if event.key == pygame.K_LEFT: 
+                    current_shape.x -= 1 
 
+                    if not check_valid_space(current_shape, grid): 
+                        current_shape.x += 1 
 
-    pass
+                elif event.key == pygame.K_RIGHT: 
+                    current_shape.x += 1 
+                    if not check_valid_space(current_shape, grid): 
+                        current_shape.x -= 1 
+                
+                elif event.key == pygame.K_UP: 
+                    current_shape.rotation = current_shape.rotation + 1 % len(current_shape.shape) 
+
+                    if not check_valid_space(current_shape, grid): 
+                        current_shape.rotation = current_shape.rotation - 1 % len(current_shape.shape) 
+                
+                if event.key == pygame.K_DOWN: 
+                    current_shape.y += 1 
+
+                    if not check_valid_space(current_shape, grid): 
+                        current_shape.y -= 1
+        draw_window(win)
 
 
 def main_menu():
@@ -233,4 +259,9 @@ def main_menu():
     pass
 
 
-main_menu()
+# main_menu()
+
+window = pygame.display.set_mode((window_width, window_height)) 
+pygame.display.set_caption(\"Tetris\")
+
+main()
