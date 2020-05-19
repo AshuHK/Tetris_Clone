@@ -356,7 +356,7 @@ def draw_window(area, grid, score=0, last_score=0):
             )
 
     pygame.draw.rect(
-        area, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5
+        area, (255, 224, 5), (top_left_x, top_left_y, play_width, play_height), 5
     )
 
     draw_grid(area, 20, 10)
