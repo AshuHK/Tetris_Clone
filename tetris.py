@@ -359,7 +359,7 @@ def draw_window(area, grid, score=0, last_score=0):
         area, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5
     )
 
-    draw_grid(area, grid)
+    draw_grid(area, 20, 10)
 
 
 def update_score(new_score):
