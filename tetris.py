@@ -368,6 +368,7 @@ def update_score(new_score):
 
     :param new_score: Integer of the new score to be updated in scores.txt 
     """
+    score = max_score()
     with open("scores.txt", "w") as file_ptr:
         if int(score) > new_score:
             file_ptr.write(str(score))
