@@ -206,7 +206,16 @@ def draw_text_middle(text, size, color, area):
     """
     """
 
-    pass
+    font = pygame.font.SysFont("comicsans", size, bold=True)
+    label = font.render(text, 1, color)
+
+    area.blit(
+        label,
+        (
+            top_left_x + play_width / 2 - (label.get_width() / 2),
+            top_left_y + play_height / 2 - label.get_height() / 2,
+        ),
+    )
 
 
 def draw_grid(area, row, column):
@@ -364,6 +373,7 @@ def update_score(new_score):
             file_ptr.write(str(score))
         else:
             file_ptr.write(str(new_score))
+
 
 def max_score():
     """
