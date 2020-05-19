@@ -301,7 +301,7 @@ def draw_next_shape(shape, area):
     area.blit(label, (box_x + 10, box_y - 30))
 
 
-def draw_window(area):
+def draw_window(area, grid, score = 0, last_score = 0):
     """
     Draws the whole window onto a specific area (in this case it is the whole
     window)
@@ -309,26 +309,36 @@ def draw_window(area):
     :param area: surface to draw the window on
     """
 
-    area.fill((0, 0, 0))
+    area.fill((0,0,0))
 
+    pygame.font.init()
     font = pygame.font.SysFont("comicsans", 60)
-    label = font.render("Tetris", 1, (255, 255, 255))
+    label = font.render("Tetris", 1, (255,255,255))
 
     area.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            pygame.draw.rect(
-                area, grid[i][j], (top_left_x + j * 30, top_left_y + i * 30, 30, 30), 0
-            )
+    font = pygame.font.SysFont("comicsans", 30) 
+    label = font.render("Score: {}".format(score), 1, (255,255,255))
 
-    # draw the grid and border
-    draw_grid(area, 20, 10)
-    pygame.draw.rect(
-        area, (255, 255, 5), (top_left_x, top_left_y, play_width, play_height), 5
-    )
+    box_x = top_left_x + play_width + 50
+    box_y = top_left_y + play_height/2 - 100 
 
-    pygame.display.update()
+    area.blit(label, (box_x + 20, box_y + 160))
+
+    label = font.render("High Score: {}".format(last_score), 1, (255,255,255))
+
+    box_x = top_left_x - 200
+    box_y = top_left_y + 200 
+
+    area.blit(label, (box_x + 20, box_y + 160))
+
+    for i in range(len(grid)): 
+        for j in range(len(grid[i])): 
+            pygame.draw.rect(area, grid[i][j], (top_left_x + j * block_size, top_left_y + i * block_size, block_size, block_size), 0)
+    
+    pygame.draw.rect(area, (255,0,0), (top_left_x, top_left_y, play_width, play_height), 5) 
+
+    draw_grid(area, grid) 
 
 
 def main():
@@ -445,7 +455,7 @@ def main():
             score += clear_rows(grid, locked_positions) * 10 
 
         # update the window
-        draw_window(window)
+        draw_window(window, grid, score, last_score)
 
         # draws the next shape into its own area on the right side of the screen
         draw_next_shape(next_shape, window)
