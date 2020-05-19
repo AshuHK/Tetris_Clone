@@ -259,9 +259,18 @@ def draw_next_shape(shape, area):
     font = pygame.font.SysFont("comicsans", 30) 
     label = font.render("Next Shape", 1, (255,255,255))
 
-    
+    box_x = top_left_x + play_width + 50 
+    box_y = top_left_y + play_height / 2 - 100 
 
-    pass
+    shape_format = shape.shape[shape.rotation % len(shape.shape)]
+
+    for i, line in enumerate(format): 
+        row = list(line) 
+        for j, column in enumerate(row): 
+            if column == "0": 
+                pygame.draw.rect(area, shape.color, (box_x + j *30, box_y + i *30), 0)
+    
+    area.blit(label, (box_x + 10, box_y - 30))
 
 
 def draw_window(area):
