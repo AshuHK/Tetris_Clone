@@ -497,7 +497,6 @@ def main(window):
             current_shape = next_shape
             next_shape = get_shape()
             change_shape = False
-            clear_rows(grid, locked_positions)
             score += clear_rows(grid, locked_positions) * 10
 
         # update the window
