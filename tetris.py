@@ -389,6 +389,7 @@ def main():
         # update the window
         draw_window(window)
 
+        # quit execution when you lose
         if check_lost(locked_positions):
             run = False
 
