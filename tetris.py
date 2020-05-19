@@ -271,7 +271,7 @@ def clear_rows(grid, locked):
                 new_key = (x, y + count1)
                 locked[new_key] = locked.pop(key)
 
-    pass
+    return count1
 
 
 def draw_next_shape(shape, area):
@@ -358,6 +358,7 @@ def main():
     fall_speed = .27 
     level_time = 0 
     score = 0 
+    last_score = max_score() 
 
     # run the this main loop when the game is still running
     while is_playing:
@@ -440,8 +441,8 @@ def main():
             current_shape = next_shape
             next_shape = get_shape()
             change_shape = False
-
             clear_rows(grid, locked_positions)
+            score += clear_rows(grid, locked_positions) * 10 
 
         # update the window
         draw_window(window)
