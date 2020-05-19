@@ -357,7 +357,7 @@ def update_score(new_score):
     """
     Updates the high score in the scores.txt file 
 
-    :param new_score: 
+    :param new_score: Integer of the new score to be updated in scores.txt 
     """
     with open("score.txt", "w") as file_ptr:
         if int(score) > new_score:
@@ -366,6 +366,11 @@ def update_score(new_score):
             file_ptr.write(str(new_score))
 
 def max_score():
+    """
+    Get the highest score 
+
+    :return: String for the height score in the file 
+    """
     with open("score.txt", "r") as file_ptr:
         lines = file_ptr.readlines()
         score = lines[0].strip()
