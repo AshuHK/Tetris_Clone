@@ -355,15 +355,24 @@ def main():
 
     # represents how long it takes for a shape to fall down
     fall_time = 0
+    fall_speed = .27 
+    level_time = 0 
+    score = 0 
 
     # run the this main loop when the game is still running
     while is_playing:
 
         # set a fall speed and have it increase over time
-        fall_speed = 0.40
         grid = create_grid(locked_positions)
         fall_time += clock.get_rawtime()
+        level_time += clock.get_rawtime()
         clock.tick()
+
+
+        if level_time/1000 > 5: 
+            level_time = 0 
+            if level_time > 0.12: 
+                level_time -= 0.005
 
         # adding falling of the shapes
         if (fall_time / 1000) >= fall_speed:
