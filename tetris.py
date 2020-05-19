@@ -443,7 +443,7 @@ def main():
 
         # quit execution when you lose
         if check_lost(locked_positions):
-            run = False
+            is_playing = False
 
 
 def main_menu():
