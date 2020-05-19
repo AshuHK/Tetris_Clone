@@ -508,7 +508,11 @@ def main():
 
         # quit execution when you lose
         if check_lost(locked_positions):
+            draw_text_middle("You Lose :(", 80, (255,255,255))
+            pygame.display.update()
+            pygame.time.delay(1500)
             is_playing = False
+            update_score(score)
 
 
 def main_menu():
@@ -518,9 +522,8 @@ def main_menu():
     pass
 
 
-main_menu()
 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Tetris")
 
-main()
+main_menu()
