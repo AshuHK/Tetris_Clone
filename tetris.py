@@ -388,7 +388,7 @@ def max_score():
     return score
 
 
-def main():
+def main(window):
     """
     Main function for the game
     """
@@ -508,22 +508,34 @@ def main():
 
         # quit execution when you lose
         if check_lost(locked_positions):
-            draw_text_middle("You Lose :(", 80, (255,255,255))
+            draw_text_middle("You Lose :(", 80, (255,255,255), window)
             pygame.display.update()
             pygame.time.delay(1500)
             is_playing = False
             update_score(score)
 
 
-def main_menu():
+def main_menu(window):
     """
     """
+    is_playing = True 
 
-    pass
+    while is_playing: 
+        window.fill((0,0,0))
+        draw_text_middle("Press any key to play", 60, (255,255,255), window)
+
+        pygame.display.update()
+        for event in pygame.event.get(): 
+            if event.type == pygame.QUIT: 
+                is_playing = False 
+            if event.type == pygame.KEYDOWN: 
+                main(window)
+
+    pygame.display.quit()
 
 
 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Tetris")
 
-main_menu()
+main_menu(window)
