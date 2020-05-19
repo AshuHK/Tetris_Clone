@@ -264,11 +264,12 @@ def draw_next_shape(shape, area):
 
     shape_format = shape.shape[shape.rotation % len(shape.shape)]
 
-    for i, line in enumerate(format): 
+    for i, line in enumerate(shape_format): 
         row = list(line) 
         for j, column in enumerate(row): 
             if column == "0": 
-                pygame.draw.rect(area, shape.color, (box_x + j *30, box_y + i *30), 0)
+                # pygame.draw.rect(area, shape.color, (box_x + j *30, box_y + i *30), 0)
+                pygame.draw.rect(area, shape.color, (box_x + j * 30, box_y +i *30, 30, 30), 0)
     
     area.blit(label, (box_x + 10, box_y - 30))
 
@@ -406,6 +407,10 @@ def main():
 
         # update the window
         draw_window(window)
+
+        # draws the next shape into its own area on the right side of the screen
+        draw_next_shape(next_shape, window)
+        pygame.display.update()
 
         # quit execution when you lose
         if check_lost(locked_positions):
