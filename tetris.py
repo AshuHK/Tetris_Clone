@@ -249,24 +249,26 @@ def clear_rows(grid, locked):
     :param locked: dictionary of all of the positions that are currently taken
                    on the board 
     """
-    count = 0 
+    count1 = 0 
 
     for i in range(len(grid) - 1, -1, -1): 
         row = grid[i]
 
         if (0,0,0) not in row: 
-            count += 1 
+            count1 += 1 
+            count2 = i 
+
             for j in range(len(row)): 
                 try: 
                     del locked[(j,i)]
                 except: 
                     continue 
     
-    if count > 0: 
+    if count1 > 0: 
         for key in sorted(list(locked), key = lambda x : x[1])[::-1]: 
             x, y = key 
-            if x < count: 
-                    new_key = (x, y + count) 
+            if x < count2 : 
+                    new_key = (x, y + count1) 
                     locked[new_key] = locked.pop(key)
 
     pass
