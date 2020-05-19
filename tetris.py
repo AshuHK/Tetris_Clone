@@ -243,7 +243,31 @@ def draw_grid(area, row, column):
 
 def clear_rows(grid, locked):
     """
+    Clears a row when it gets filled 
+
+    :param grid: 2D list of all of the positions on the grid 
+    :param locked: dictionary of all of the positions that are currently taken
+                   on the board 
     """
+    count = 0 
+
+    for i in range(len(grid) - 1, -1, -1): 
+        row = grid[i]
+
+        if (0,0,0) not in row: 
+            count += 1 
+            for j in range(len(row)): 
+                try: 
+                    del locked[(j,i)]
+                except: 
+                    continue 
+    
+    if count > 0: 
+        for key in sorted(list(locked), key = lambda x : x[1])[::-1]: 
+            x, y = key 
+            if x < count: 
+                    new_key = (x, y + count) 
+                    locked[new_key] = locked.pop(key)
 
     pass
 
@@ -404,6 +428,8 @@ def main():
             current_shape = next_shape
             next_shape = get_shape()
             change_shape = False
+
+            clear_rows(grid, locked_positions)
 
         # update the window
         draw_window(window)
