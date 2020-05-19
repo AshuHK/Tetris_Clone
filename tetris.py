@@ -243,60 +243,61 @@ def draw_grid(area, row, column):
 
 def clear_rows(grid, locked):
     """
-    Clears a row when it gets filled 
+    Clears a row when it gets filled
 
-    :param grid: 2D list of all of the positions on the grid 
+    :param grid: 2D list of all of the positions on the grid
     :param locked: dictionary of all of the positions that are currently taken
-                   on the board 
+                   on the board
     """
-    count1 = 0 
+    count1 = 0
 
-    for i in range(len(grid) - 1, -1, -1): 
+    for i in range(len(grid) - 1, -1, -1):
         row = grid[i]
 
-        if (0,0,0) not in row: 
-            count1 += 1 
-            count2 = i 
+        if (0, 0, 0) not in row:
+            count1 += 1
+            count2 = i
 
-            for j in range(len(row)): 
-                try: 
-                    del locked[(j,i)]
-                except: 
-                    continue 
-    
-    if count1 > 0: 
-        for key in sorted(list(locked), key = lambda x : x[1])[::-1]: 
-            x, y = key 
-            if x < count2 : 
-                    new_key = (x, y + count1) 
-                    locked[new_key] = locked.pop(key)
+            for j in range(len(row)):
+                try:
+                    del locked[(j, i)]
+                except:
+                    continue
+
+    if count1 > 0:
+        for key in sorted(list(locked), key=lambda x: x[1])[::-1]:
+            x, y = key
+            if x < count2:
+                new_key = (x, y + count1)
+                locked[new_key] = locked.pop(key)
 
     pass
 
 
 def draw_next_shape(shape, area):
     """
-    Draw the next shape on the side of the screen 
-    
-    :param shape: Shape object that is set to be your next shape 
-    :param area: Surface object where you draw on the window 
+    Draw the next shape on the side of the screen
+
+    :param shape: Shape object that is set to be your next shape
+    :param area: Surface object where you draw on the window
     """
 
-    font = pygame.font.SysFont("comicsans", 30) 
-    label = font.render("Next Shape", 1, (255,255,255))
+    font = pygame.font.SysFont("comicsans", 30)
+    label = font.render("Next Shape", 1, (255, 255, 255))
 
-    box_x = top_left_x + play_width + 50 
-    box_y = top_left_y + play_height / 2 - 100 
+    box_x = top_left_x + play_width + 50
+    box_y = top_left_y + play_height / 2 - 100
 
     shape_format = shape.shape[shape.rotation % len(shape.shape)]
 
-    for i, line in enumerate(shape_format): 
-        row = list(line) 
-        for j, column in enumerate(row): 
-            if column == "0": 
-                # pygame.draw.rect(area, shape.color, (box_x + j *30, box_y + i *30), 0)
-                pygame.draw.rect(area, shape.color, (box_x + j * 30, box_y +i *30, 30, 30), 0)
-    
+    for i, line in enumerate(shape_format):
+        row = list(line)
+        for j, column in enumerate(row):
+            if column == "0":
+                pygame.draw.rect(
+                    area, shape.color, (box_x + j * 30, box_y + i * 30, 30, 30), 0
+                )
+
     area.blit(label, (box_x + 10, box_y - 30))
 
 
