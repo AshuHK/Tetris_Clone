@@ -352,23 +352,21 @@ def draw_window(area, grid, score=0, last_score=0):
 
     draw_grid(area, grid)
 
-def update_score(new_score): 
+
+def update_score(new_score):
     """
     Updates the high score in the scores.txt file 
 
     :param new_score: 
     """
-    with open("score.txt", "w") as file_ptr: 
-        if int(score) > new_score: 
+    with open("score.txt", "w") as file_ptr:
+        if int(score) > new_score:
             file_ptr.write(str(score))
-        else: 
+        else:
             file_ptr.write(str(new_score))
 
-
-
-
-def max_score(): 
-    with open("score.txt", "r") as file_ptr: 
+def max_score():
+    with open("score.txt", "r") as file_ptr:
         lines = file_ptr.readlines()
         score = lines[0].strip()
 
