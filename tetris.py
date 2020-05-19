@@ -250,7 +250,16 @@ def clear_rows(grid, locked):
 
 def draw_next_shape(shape, area):
     """
+    Draw the next shape on the side of the screen 
+    
+    :param shape: Shape object that is set to be your next shape 
+    :param area: Surface object where you draw on the window 
     """
+
+    font = pygame.font.SysFont("comicsans", 30) 
+    label = font.render("Next Shape", 1, (255,255,255))
+
+    
 
     pass
 
