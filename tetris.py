@@ -364,9 +364,9 @@ def draw_window(area, grid, score=0, last_score=0):
 
 def update_score(new_score):
     """
-    Updates the high score in the scores.txt file 
+    Updates the high score in the scores.txt file
 
-    :param new_score: Integer of the new score to be updated in scores.txt 
+    :param new_score: Integer of the new score to be updated in scores.txt
     """
     score = max_score()
     with open("scores.txt", "w") as file_ptr:
@@ -378,9 +378,9 @@ def update_score(new_score):
 
 def max_score():
     """
-    Get the highest score 
+    Get the highest score
 
-    :return: String for the height score in the file 
+    :return: String for the height score in the file
     """
     with open("scores.txt", "r") as file_ptr:
         lines = file_ptr.readlines()
@@ -508,7 +508,7 @@ def main(window):
 
         # quit execution when you lose
         if check_lost(locked_positions):
-            draw_text_middle("You Lose :(", 80, (255,255,255), window)
+            draw_text_middle("You Lose :(", 80, (255, 255, 255), window)
             pygame.display.update()
             pygame.time.delay(1500)
             is_playing = False
@@ -518,21 +518,20 @@ def main(window):
 def main_menu(window):
     """
     """
-    is_playing = True 
+    is_playing = True
 
-    while is_playing: 
-        window.fill((0,0,0))
-        draw_text_middle("Press any key to play", 60, (255,255,255), window)
+    while is_playing:
+        window.fill((0, 0, 0))
+        draw_text_middle("Press any key to play", 60, (255, 255, 255), window)
 
         pygame.display.update()
-        for event in pygame.event.get(): 
-            if event.type == pygame.QUIT: 
-                is_playing = False 
-            if event.type == pygame.KEYDOWN: 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                is_playing = False
+            if event.type == pygame.KEYDOWN:
                 main(window)
 
     pygame.display.quit()
-
 
 
 window = pygame.display.set_mode((window_width, window_height))
