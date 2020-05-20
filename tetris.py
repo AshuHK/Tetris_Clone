@@ -100,7 +100,7 @@ def create_grid(locked_positions={}):
     """
 
     # make a grid of colors a size of 10 by 20
-    grid = [[(0, 0, 0) for x in range(10)] for y in range(20)]
+    grid = [[(0, 0, 0) for x in range(10)] for x in range(20)]
 
     # iterate through the whole grid
     for i in range(len(grid)):
@@ -276,11 +276,9 @@ def clear_rows(grid, locked):
     if count1 > 0:
         for key in sorted(list(locked), key=lambda x: x[1])[::-1]:
             x, y = key
-            if x < count2:
+            if y < count2:
                 new_key = (x, y + count1)
                 locked[new_key] = locked.pop(key)
-
-    return count1
 
 
 def draw_next_shape(shape, area):
@@ -324,6 +322,7 @@ def draw_window(area, grid, score=0, last_score=0):
     font = pygame.font.SysFont("comicsans", 60)
     label = font.render("Tetris", 1, (255, 255, 255))
 
+    # title label
     area.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
     font = pygame.font.SysFont("comicsans", 30)
@@ -332,6 +331,7 @@ def draw_window(area, grid, score=0, last_score=0):
     box_x = top_left_x + play_width + 50
     box_y = top_left_y + play_height / 2 - 100
 
+    # current score label
     area.blit(label, (box_x + 20, box_y + 160))
 
     label = font.render("High Score: {}".format(last_score), 1, (255, 255, 255))
@@ -339,8 +339,10 @@ def draw_window(area, grid, score=0, last_score=0):
     box_x = top_left_x - 200
     box_y = top_left_y + 200
 
+    # high score label
     area.blit(label, (box_x + 20, box_y + 160))
 
+    # drawing each of the squares in the grid
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             pygame.draw.rect(
@@ -355,11 +357,11 @@ def draw_window(area, grid, score=0, last_score=0):
                 0,
             )
 
+    # draw grid and boder
+    draw_grid(area, 20, 10)
     pygame.draw.rect(
         area, (255, 224, 5), (top_left_x, top_left_y, play_width, play_height), 5
     )
-
-    draw_grid(area, 20, 10)
 
 
 def update_score(new_score):
@@ -426,6 +428,7 @@ def main(window):
         fall_time += clock.get_rawtime()
         level_time += clock.get_rawtime()
         clock.tick()
+
         if level_time / 1000 > 5:
             level_time = 0
             if level_time > 0.12:
@@ -435,7 +438,7 @@ def main(window):
         if (fall_time / 1000) >= fall_speed:
             fall_time = 0
             current_shape.y += 1
-            if not check_valid_space(current_shape, grid) and (current_shape.y > 0):
+            if not (check_valid_space(current_shape, grid)) and current_shape.y > 0:
                 current_shape.y -= 1
                 change_shape = True
 
@@ -497,7 +500,10 @@ def main(window):
             current_shape = next_shape
             next_shape = get_shape()
             change_shape = False
-            score += clear_rows(grid, locked_positions) * 10
+
+            # if rows have been cleared
+            if clear_rows(grid, locked_positions):
+                score += 10
 
         # update the window
         draw_window(window, grid, score, last_score)
@@ -510,7 +516,7 @@ def main(window):
         if check_lost(locked_positions):
             draw_text_middle("You Lose :(", 80, (255, 255, 255), window)
             pygame.display.update()
-            pygame.time.delay(1500)
+            pygame.time.delay(2000)
             is_playing = False
             update_score(score)
 
