@@ -258,6 +258,9 @@ def clear_rows(grid, locked):
     :param locked: dictionary of all of the positions that are currently taken
                    on the board
     """
+    grid_copy = grid 
+    locked_copy = locked 
+
     count1 = 0
 
     for i in range(len(grid) - 1, -1, -1):
@@ -279,6 +282,11 @@ def clear_rows(grid, locked):
             if y < count2:
                 new_key = (x, y + count1)
                 locked[new_key] = locked.pop(key)
+
+    # if (grid_copy == grid) and (locked_copy == locked): 
+    #     return False 
+    
+    return count1 
 
 
 def draw_next_shape(shape, area):
@@ -326,9 +334,9 @@ def draw_window(area, grid, score=0, last_score=0):
     area.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
     font = pygame.font.SysFont("comicsans", 30)
-    label = font.render("Score: {}".format(score), 1, (255, 255, 255))
+    label = font.render("Lines Cleared: {}".format(score), 1, (255, 255, 255))
 
-    box_x = top_left_x + play_width + 50
+    box_x = top_left_x + play_width + 30
     box_y = top_left_y + play_height / 2 - 100
 
     # current score label
@@ -501,9 +509,7 @@ def main(window):
             next_shape = get_shape()
             change_shape = False
 
-            # if rows have been cleared
-            if clear_rows(grid, locked_positions):
-                score += 10
+            score += clear_rows(grid, locked_positions) 
 
         # update the window
         draw_window(window, grid, score, last_score)
