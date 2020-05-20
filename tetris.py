@@ -258,8 +258,8 @@ def clear_rows(grid, locked):
     :param locked: dictionary of all of the positions that are currently taken
                    on the board
     """
-    grid_copy = grid 
-    locked_copy = locked 
+    grid_copy = grid
+    locked_copy = locked
 
     count1 = 0
 
@@ -283,10 +283,10 @@ def clear_rows(grid, locked):
                 new_key = (x, y + count1)
                 locked[new_key] = locked.pop(key)
 
-    # if (grid_copy == grid) and (locked_copy == locked): 
-    #     return False 
-    
-    return count1 
+    # if (grid_copy == grid) and (locked_copy == locked):
+    #     return False
+
+    return count1
 
 
 def draw_next_shape(shape, area):
@@ -509,7 +509,7 @@ def main(window):
             next_shape = get_shape()
             change_shape = False
 
-            score += clear_rows(grid, locked_positions) 
+            score += clear_rows(grid, locked_positions)
 
         # update the window
         draw_window(window, grid, score, last_score)
