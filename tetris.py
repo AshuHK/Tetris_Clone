@@ -283,9 +283,6 @@ def clear_rows(grid, locked):
                 new_key = (x, y + count1)
                 locked[new_key] = locked.pop(key)
 
-    # if (grid_copy == grid) and (locked_copy == locked):
-    #     return False
-
     return count1
 
 
