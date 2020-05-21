@@ -3,7 +3,7 @@ import random
 
 pygame.font.init()
 
-# Global variables
+# start of global variables 
 window_width = 800
 window_height = 700
 
@@ -64,6 +64,7 @@ color_list = [
     (0, 0, 255),
     (128, 0, 128),
 ]
+# end of global variables 
 
 # randomize the colors of the shapes
 random.shuffle(color_list)
@@ -125,8 +126,11 @@ def convert_shape_format(shape):
     """
 
     positions = []
+
+    # get the rotation of the shape 
     format = shape.shape[shape.rotation % len(shape.shape)]
 
+    # iterate through the reformatted shape to fit the grid 
     for i, line in enumerate(format):
         row = list(line)
         for j, column in enumerate(row):
@@ -149,14 +153,16 @@ def check_valid_space(shape, grid):
     :return: Boolean for if the space is allowed for the shape
     """
 
+    # get the allowed positions in the grid
     allowed_positions = [
         [(j, i) for j in range(10) if grid[i][j] == (0, 0, 0)] for i in range(20)
     ]
-
     allowed_positions = [j for sub in allowed_positions for j in sub]
 
+    # get the shape into the format needed 
     formatted_shape = convert_shape_format(shape)
 
+    # iterates through the grid and determines if the shape can fit 
     for pos in formatted_shape:
         if pos not in allowed_positions:
             if pos[1] > -1:
@@ -204,11 +210,19 @@ def get_shape():
 
 def draw_text_middle(text, size, color, area):
     """
+    Draws text in the middle of the screen 
+
+    :param text: String of the text to be displayed in the window
+    :param size: Integer for the size of the text
+    :param color: Tuple of three integers for the RGB values 
+    :param area: Surface object for the window 
     """
 
+    # generate the text for the screen
     font = pygame.font.SysFont("comicsans", size, bold=True)
     label = font.render(text, 1, color)
 
+    # place and display the text on the screen 
     area.blit(
         label,
         (
@@ -252,17 +266,20 @@ def draw_grid(area, row, column):
 
 def clear_rows(grid, locked):
     """
-    Clears a row when it gets filled
+    Clears a row when it gets filled and returns the number of lines cleared
 
     :param grid: 2D list of all of the positions on the grid
     :param locked: dictionary of all of the positions that are currently taken
                    on the board
+
+    :return: Integer for the number of lines cleared 
     """
     grid_copy = grid
     locked_copy = locked
 
     count1 = 0
 
+    # clear out the empty rows by finding rows with no (0,0,0)
     for i in range(len(grid) - 1, -1, -1):
         row = grid[i]
 
@@ -276,6 +293,7 @@ def clear_rows(grid, locked):
                 except:
                     continue
 
+    # the falling effect that have the shapes go down 
     if count1 > 0:
         for key in sorted(list(locked), key=lambda x: x[1])[::-1]:
             x, y = key
@@ -294,6 +312,7 @@ def draw_next_shape(shape, area):
     :param area: Surface object where you draw on the window
     """
 
+    # generate the text for the next shape 
     font = pygame.font.SysFont("comicsans", 30)
     label = font.render("Next Shape", 1, (255, 255, 255))
 
@@ -302,6 +321,7 @@ def draw_next_shape(shape, area):
 
     shape_format = shape.shape[shape.rotation % len(shape.shape)]
 
+    # draws the shape 
     for i, line in enumerate(shape_format):
         row = list(line)
         for j, column in enumerate(row):
@@ -310,6 +330,7 @@ def draw_next_shape(shape, area):
                     area, shape.color, (box_x + j * 30, box_y + i * 30, 30, 30), 0
                 )
 
+    # draw the text for the next shape 
     area.blit(label, (box_x + 10, box_y - 30))
 
 
@@ -321,30 +342,35 @@ def draw_window(area, grid, score=0, last_score=0):
     :param area: surface to draw the window on
     """
 
+    # set the background to be black
     area.fill((0, 0, 0))
 
     pygame.font.init()
+
+    # create the text for the title 
     font = pygame.font.SysFont("comicsans", 60)
     label = font.render("Tetris", 1, (255, 255, 255))
 
-    # title label
+    # display the text for the label
     area.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
+    # create the text for the score 
     font = pygame.font.SysFont("comicsans", 30)
     label = font.render("Lines Cleared: {}".format(score), 1, (255, 255, 255))
 
     box_x = top_left_x + play_width + 30
     box_y = top_left_y + play_height / 2 - 100
 
-    # current score label
+    # display the text for the score 
     area.blit(label, (box_x + 20, box_y + 160))
 
+    # create the text for the high score 
     label = font.render("High Score: {}".format(last_score), 1, (255, 255, 255))
 
     box_x = top_left_x - 200
     box_y = top_left_y + 200
 
-    # high score label
+    # display the text for the high score 
     area.blit(label, (box_x + 20, box_y + 160))
 
     # drawing each of the squares in the grid
@@ -375,8 +401,14 @@ def update_score(new_score):
 
     :param new_score: Integer of the new score to be updated in scores.txt
     """
+
+    # get the max score 
     score = max_score()
+
+    # open the file in read and write mode 
     with open("scores.txt", "w") as file_ptr:
+
+        # overwrite the old high score if the current score is higher
         if int(score) > new_score:
             file_ptr.write(str(score))
         else:
@@ -385,11 +417,15 @@ def update_score(new_score):
 
 def max_score():
     """
-    Get the highest score
+    Get the highest score from scores.txt
 
     :return: String for the height score in the file
     """
+
+    # open the file in read-only mode 
     with open("scores.txt", "r") as file_ptr:
+
+        # read in the first line which would be the old high score 
         lines = file_ptr.readlines()
         score = lines[0].strip()
 
@@ -399,6 +435,8 @@ def max_score():
 def main(window):
     """
     Main function for the game
+
+    :param window: Window object from pygame for the window 
     """
 
     global grid
@@ -434,6 +472,7 @@ def main(window):
         level_time += clock.get_rawtime()
         clock.tick()
 
+        # the length of the level before increasing fall speed 
         if level_time / 1000 > 5:
             level_time = 0
             if level_time > 0.12:
@@ -497,7 +536,7 @@ def main(window):
             if y > -1:
                 grid[y][x] = current_shape.color
 
-        # when the shape hits the bottom of the grid
+        # when the shape hits the bottom of the grid, move to next shape
         if change_shape:
             for pos in shape_pos:
                 p = (pos[0], pos[1])
@@ -506,6 +545,7 @@ def main(window):
             next_shape = get_shape()
             change_shape = False
 
+            # updates the score 
             score += clear_rows(grid, locked_positions)
 
         # update the window
@@ -526,15 +566,23 @@ def main(window):
 
 def main_menu(window):
     """
+    Main menu sequence before starting the game 
+
+    :param window: Window object from pygame for the window  
     """
     is_playing = True
 
+    # continue playing until the game is over 
     while is_playing:
+
+        # draw the text waiting for the user to start the game 
         window.fill((0, 0, 0))
         draw_text_middle("Press any key to play", 60, (255, 255, 255), window)
 
         pygame.display.update()
         for event in pygame.event.get():
+            
+            # starts the game at any keypress 
             if event.type == pygame.QUIT:
                 is_playing = False
             if event.type == pygame.KEYDOWN:
@@ -542,8 +590,9 @@ def main_menu(window):
 
     pygame.display.quit()
 
-
+# create the window and set the title 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Tetris")
 
+# start the game with the main menu 
 main_menu(window)
